@@ -58,7 +58,7 @@ public class AccountController {
 
 
         // TODO バリデーションチェック、パスワード一致チェック実装
-        /// バリデーションチェック
+
         boolean isEmailValid = email
                 .matches("^([a-zA-Z0-9])+([a-zA-Z0-9\\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\\._-]+)+$");
         boolean isValidPW = password.matches("^[A-Za-z0-9]+$");
@@ -75,20 +75,14 @@ public class AccountController {
             model.addAttribute("error", "パスワードが一致しません");
             return "createAccount";
         }
-        /// eメールがメール形式ではなかった場合　→　62行目に含まれるので必要なし
         
         
+
         userInfo.setPassword(password);
         usersService.registUser(userInfo);
 
         model.addAttribute("bookList", booksService.getBookList());
         return "home";
     }
-
-
-        // TODO 自動生成されたメソッド・スタブ
-        //半角英数字であるかチェック
-
-
 
 }
