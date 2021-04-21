@@ -56,8 +56,6 @@ public class BooksService {
         return bookDetailsInfo;
     }
 
-
-
     /**
      * 書籍を登録する
      *
