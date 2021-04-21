@@ -56,8 +56,6 @@ public class BooksService {
         return bookDetailsInfo;
     }
 
-
-
     /**
      * 書籍を登録する
      *
@@ -72,6 +70,11 @@ public class BooksService {
                 + "sysdate(),"
                 + "sysdate())";
 
+        jdbcTemplate.update(sql);
+    }
+
+    public void deletingSystem(int bookId) {
+        String sql = "delete from books where id=" + bookId + ";";
         jdbcTemplate.update(sql);
     }
 }
