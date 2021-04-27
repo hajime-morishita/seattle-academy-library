@@ -1,5 +1,8 @@
 package jp.co.seattle.library.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -53,6 +56,9 @@ public class AddBooksController {
             @RequestParam("author") String author,
             @RequestParam("publisher") String publisher,
             @RequestParam("thumbnail") MultipartFile file,
+            @RequestParam("description") String description,
+            @RequestParam("publish_date") String publish_date,
+            @RequestParam("isbn") String isbn,
             Model model) {
         logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
 
@@ -61,6 +67,29 @@ public class AddBooksController {
         bookInfo.setTitle(title);
         bookInfo.setAuthor(author);
         bookInfo.setPublisher(publisher);
+        bookInfo.setDescription(description);
+        bookInfo.setPublish_date(publish_date);
+        bookInfo.setIsbn(isbn);
+
+        boolean isIsbnValid = isbn.matches("(^\\d{10,13}$)?");
+        boolean checkId = false;
+
+        if (!isIsbnValid) {
+            model.addAttribute("error", "ISBNは10字または13字の半角英数字を入力してください");
+            checkId = true;
+        }
+
+        try {
+            DateFormat df = new SimpleDateFormat("yyyymmdd");
+            df.setLenient(false);
+            df.parse(publish_date);
+        } catch (ParseException p) {
+            model.addAttribute("error1", "出版日は半角数字のYYYYMMDD形式で入力してください");
+            checkId = true;
+        }
+        if (checkId) {
+            return "addBook";
+        }
 
         // クライアントのファイルシステムにある元のファイル名を設定する
         String thumbnail = file.getOriginalFilename();
@@ -91,6 +120,11 @@ public class AddBooksController {
 
         // TODO 登録した書籍の詳細情報を表示するように実装
         //  詳細画面に遷移する
+        booksService.returnDetail();
+        int returnId = booksService.returnDetail();
+        booksService.getBookInfo(returnId);
+        model.addAttribute("bookDetailsInfo", booksService.getBookInfo(returnId));
+
         return "details";
     }
 

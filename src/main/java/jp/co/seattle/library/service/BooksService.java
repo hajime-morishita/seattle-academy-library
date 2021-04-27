@@ -33,7 +33,7 @@ public class BooksService {
 
         // TODO 取得したい情報を取得するようにSQLを修正
         List<BookInfo> getedBookList = jdbcTemplate.query(
-                "select id,title,author,publisher,publish_date,thumbnail_url from books order by title asc",
+                "select id,title,author,publisher,publish_date,thumbnail_url,description,publish_date,isbn from books order by title asc",
                 new BookInfoRowMapper());
 
         return getedBookList;
@@ -62,11 +62,14 @@ public class BooksService {
      * @param bookInfo 書籍情報
      */
     public void registBook(BookDetailsInfo bookInfo) {
-
-        String sql = "INSERT INTO books (title, author,publisher,thumbnail_name,thumbnail_url,reg_date,upd_date) VALUES ('"
+        //
+        String sql = "INSERT INTO books (title, author,publisher,Publish_date,thumbnail_name,thumbnail_url,isbn,description,upd_date,reg_date) VALUES ('"
                 + bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','"
+                + bookInfo.getPublish_date() + "','"
                 + bookInfo.getThumbnailName() + "','"
-                + bookInfo.getThumbnailUrl() + "',"
+                + bookInfo.getThumbnailUrl() + "','"
+                + bookInfo.getIsbn() + "','"
+                + bookInfo.getDescription() + "',"
                 + "sysdate(),"
                 + "sysdate())";
 
@@ -76,5 +79,10 @@ public class BooksService {
     public void deletingSystem(int bookId) {
         String sql = "delete from books where id=" + bookId + ";";
         jdbcTemplate.update(sql);
+    }
+
+    public int returnDetail() {
+        int returnId = jdbcTemplate.queryForObject("SELECT MAX(ID) from books", Integer.class);
+        return returnId;
     }
 }
