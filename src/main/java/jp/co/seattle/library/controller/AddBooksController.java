@@ -72,19 +72,22 @@ public class AddBooksController {
         bookInfo.setIsbn(isbn);
 
         boolean isIsbnValid = isbn.matches("(^\\d{10,13}$)?");
+        boolean checkId = false;
 
         if (!isIsbnValid) {
-            model.addAttribute("error", "10字または13字の数字を入力してください");
-            return "addBook";
+            model.addAttribute("error", "ISBNは10字または13字の半角英数字を入力してください");
+            checkId = true;
         }
 
         try {
-            DateFormat df = new SimpleDateFormat("yyyyMMdd");
+            DateFormat df = new SimpleDateFormat("yyyymmdd");
             df.setLenient(false);
             df.parse(publish_date);
-
         } catch (ParseException p) {
-            model.addAttribute("error1", "年月日を入力してください");
+            model.addAttribute("error1", "出版日は半角数字のYYYYMMDD形式で入力してください");
+            checkId = true;
+        }
+        if (checkId) {
             return "addBook";
         }
 

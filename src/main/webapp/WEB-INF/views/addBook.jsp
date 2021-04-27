@@ -59,12 +59,18 @@
                 </div>
                 <div class="content_right">
                     <div>
+                        <c:if test="${!empty error1}">
+                            <div class="error">${error1}</div>
+                        </c:if>
+                        <c:if test="${!empty error}">
+                            <div class="error">${error}</div>
+                        </c:if>
                         <span>書籍名</span><span class="care care2">必須</span>
                         <c:if test="${!empty bookInfo}">
                             <input type="text" name="title" value="${bookInfo.title}">
                         </c:if>
                         <c:if test="${empty bookInfo}">
-                            <input type="text" name="title" autocomplete="off">
+                            <input type="text" name="title" autocomplete="off" required>
                         </c:if>
                     </div>
                     <div>
@@ -73,7 +79,7 @@
                             <input type="text" name="author" value="${bookInfo.author}">
                         </c:if>
                         <c:if test="${empty bookInfo}">
-                            <input type="text" name="author" autocomplete="off">
+                            <input type="text" name="author" autocomplete="off" required>
                         </c:if>
                     </div>
                     <div>
@@ -82,7 +88,7 @@
                             <input type="text" name="publisher" value="${bookInfo.publisher}">
                         </c:if>
                         <c:if test="${empty bookInfo}">
-                            <input type="text" name="publisher">
+                            <input type="text" name="publisher" required>
                         </c:if>
                     </div>
                     <div>
@@ -91,10 +97,7 @@
                             <input type="text" name="publish_date" value="${bookInfo.publish_date}">
                         </c:if>
                         <c:if test="${empty bookInfo}">
-                            <input type="text" name="publish_date">
-                        </c:if>
-                        <c:if test="${!empty error1}">
-                            <div class="error">${error1}</div>
+                            <input type="text" name="publish_date" required>
                         </c:if>
                     </div>
                     <div>
@@ -104,9 +107,6 @@
                         </c:if>
                         <c:if test="${empty bookInfo}">
                             <input type="text" name="isbn">
-                        </c:if>
-                        <c:if test="${!empty error}">
-                            <div class="error">${error}</div>
                         </c:if>
                     </div>
                     <div>
