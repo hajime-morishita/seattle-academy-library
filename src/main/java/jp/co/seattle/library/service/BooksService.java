@@ -63,7 +63,7 @@ public class BooksService {
      */
     public void registBook(BookDetailsInfo bookInfo) {
         //
-        String sql = "INSERT INTO books (title, author,publisher,Publish_date,thumbnail_name,thumbnail_url,isbn,description,upd_date,reg_date) VALUES ('"
+        String sql = "INSERT INTO books (title, author,publisher,publish_date,thumbnail_name,thumbnail_url,isbn,description,upd_date,reg_date) VALUES ('"
                 + bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','"
                 + bookInfo.getPublish_date() + "','"
                 + bookInfo.getThumbnailName() + "','"
@@ -71,7 +71,7 @@ public class BooksService {
                 + bookInfo.getIsbn() + "','"
                 + bookInfo.getDescription() + "',"
                 + "sysdate(),"
-                + "sysdate())";
+                + "sysdate());";
 
         jdbcTemplate.update(sql);
     }
@@ -81,8 +81,22 @@ public class BooksService {
         jdbcTemplate.update(sql);
     }
 
-    public int returnDetail() {
-        int returnId = jdbcTemplate.queryForObject("SELECT MAX(ID) from books", Integer.class);
+    public int getReturnId() {
+        String sql = "select MAX(id) from books";
+        int returnId = jdbcTemplate.queryForObject(sql, Integer.class);
         return returnId;
     }
+
+    public void updateBook(BookDetailsInfo bookInfo) {
+        String sql = "update books set title='" + bookInfo.getTitle() + "', author='" + bookInfo.getAuthor() +
+                "',publisher='" + bookInfo.getPublisher() + "',publish_date='" + bookInfo.getPublish_date() +
+                "',thumbnail_name='" + bookInfo.getThumbnailName() + "',thumbnail_url='" + bookInfo.getThumbnailUrl() +
+                "',isbn='" + bookInfo.getIsbn() + "',description='" + bookInfo.getDescription() +
+                "',upd_date=sysdate()" +
+                "where Id=" + bookInfo.getBookId() + ";";
+
+        jdbcTemplate.update(sql);
+
+    }
 }
+
