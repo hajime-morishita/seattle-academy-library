@@ -65,7 +65,7 @@ public class EditController {
             @RequestParam("publisher") String publisher,
             @RequestParam("thumbnail") MultipartFile file,
             @RequestParam("description") String description,
-            @RequestParam("publishDate") String publish_date,
+            @RequestParam("publish_date") String publishDate,
             @RequestParam("isbn") String isbn,
             @RequestParam("bookId") Integer bookId,
             Model model) {
@@ -77,7 +77,7 @@ public class EditController {
         bookInfo.setAuthor(author);
         bookInfo.setPublisher(publisher);
         bookInfo.setDescription(description);
-        bookInfo.setPublish_date(publish_date);
+        bookInfo.setPublish_date(publishDate);
         bookInfo.setIsbn(isbn);
         bookInfo.setBookId(bookId);
 
@@ -92,7 +92,7 @@ public class EditController {
         try {
             DateFormat df = new SimpleDateFormat("yyyymmdd");
             df.setLenient(false);
-            df.parse(publish_date);
+            df.parse(publishDate);
         } catch (ParseException p) {
             model.addAttribute("error1", "出版日は半角数字のYYYYMMDD形式で入力してください");
             checkId = true;
