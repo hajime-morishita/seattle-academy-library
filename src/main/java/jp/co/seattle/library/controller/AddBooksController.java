@@ -46,6 +46,10 @@ public class AddBooksController {
      * @param author 著者名
      * @param publisher 出版社
      * @param file サムネイルファイル
+     * * @param description　書籍情報
+     * @param publish_date　出版日時
+     * @param isbn　書籍国際規格コード
+     * @param bookId　書籍ID
      * @param model モデル
      * @return 遷移先画面
      */
