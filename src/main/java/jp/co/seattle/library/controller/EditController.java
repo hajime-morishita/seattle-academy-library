@@ -51,7 +51,7 @@ public class EditController {
             @RequestParam("publisher") String publisher,
             @RequestParam("thumbnail") MultipartFile file,
             @RequestParam("description") String description,
-            @RequestParam("publish_date") String publish_date,
+            @RequestParam("publishDate") String publish_date,
             @RequestParam("isbn") String isbn,
             @RequestParam("bookId") Integer bookId,
             Model model) {
@@ -111,7 +111,6 @@ public class EditController {
 
         // 書籍情報を新規登録する
         booksService.updateBook(bookInfo);
-        //booksService.getBookInfo(bookId);
         model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
 
 
