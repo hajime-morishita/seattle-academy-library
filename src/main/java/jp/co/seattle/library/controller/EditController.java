@@ -123,7 +123,7 @@ public class EditController {
             }
         }
 
-        // 書籍情報を新規登録する
+        // 書籍情報を登録する
         booksService.updateBook(bookInfo);
         model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
 

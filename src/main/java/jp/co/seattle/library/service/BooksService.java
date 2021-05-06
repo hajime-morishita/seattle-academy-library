@@ -81,6 +81,11 @@ public class BooksService {
         jdbcTemplate.update(sql);
     }
 
+    /**
+     * 書籍を更新する
+     * 
+     * @return 遷移先画面
+     */
     public int getReturnId() {
         String sql = "select MAX(id) from books";
         int returnId = jdbcTemplate.queryForObject(sql, Integer.class);

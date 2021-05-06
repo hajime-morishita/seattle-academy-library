@@ -46,7 +46,7 @@ public class AddBooksController {
      * @param author 著者名
      * @param publisher 出版社
      * @param file サムネイルファイル
-     * * @param description　書籍情報
+     * @param description　書籍情報
      * @param publish_date　出版日時
      * @param isbn　書籍国際規格コード
      * @param bookId　書籍ID
@@ -61,7 +61,7 @@ public class AddBooksController {
             @RequestParam("publisher") String publisher,
             @RequestParam("thumbnail") MultipartFile file,
             @RequestParam("description") String description,
-            @RequestParam("publish_date") String publish_date,
+            @RequestParam("publish_date") String publishDate,
             @RequestParam("isbn") String isbn,
             Model model) {
         logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
@@ -72,7 +72,7 @@ public class AddBooksController {
         bookInfo.setAuthor(author);
         bookInfo.setPublisher(publisher);
         bookInfo.setDescription(description);
-        bookInfo.setPublish_date(publish_date);
+        bookInfo.setPublish_date(publishDate);
         bookInfo.setIsbn(isbn);
 
         boolean isIsbnValid = isbn.matches("(^\\d{10,13}$)?");
@@ -86,7 +86,7 @@ public class AddBooksController {
         try {
             DateFormat df = new SimpleDateFormat("yyyymmdd");
             df.setLenient(false);
-            df.parse(publish_date);
+            df.parse(publishDate);
         } catch (ParseException p) {
             model.addAttribute("error1", "出版日は半角数字のYYYYMMDD形式で入力してください");
             checkId = true;
