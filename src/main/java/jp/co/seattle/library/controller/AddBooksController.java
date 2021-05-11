@@ -75,7 +75,7 @@ public class AddBooksController {
         bookInfo.setPublish_date(publishDate);
         bookInfo.setIsbn(isbn);
 
-        boolean isIsbnValid = isbn.matches("(^\\d{10,13}$)?");
+        boolean isIsbnValid = isbn.matches("(^\\d{10}|\\d{13}$)?");
         boolean checkId = false;
 
         if (!isIsbnValid) {
