@@ -27,7 +27,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jp.co.seattle.library.dto.BookDetailsInfo;
 import jp.co.seattle.library.service.BooksService;
-import jp.co.seattle.library.service.ThumbnailService;
 
 /**
  * Handles requests for the application home page.
@@ -39,15 +38,27 @@ public class BulkRegistController {
     @Autowired
     private BooksService booksService;
 
-    @Autowired
-    private ThumbnailService thumbnailService;
 
+    /**
+     * 一括登録画面に遷移
+     * 
+     * @param model モデル
+     * @return
+     */
     @RequestMapping(value = "/bulkRegist", method = RequestMethod.GET) //value＝actionで指定したパラメータ
     //RequestParamでname属性を取得
     public String login(Model model) {
         return "bulkRegistration";
     }
 
+    /**
+     * 一括登録機能
+     * 
+     * @param locale ロケール情報
+     * @param uploadFile アップデートファイル
+     * @param model モデル
+     * @return
+     */
     @Transactional
     @RequestMapping(value = "/bulkRegistSystem", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
     public String bulkRegistSystem(Locale locale,
@@ -60,7 +71,7 @@ public class BulkRegistController {
 
             ArrayList<BookDetailsInfo> bookList = new ArrayList<BookDetailsInfo>();
             ArrayList<String> errorList = new ArrayList<String>();
-            int n = 1;
+            int count = 1;
 
             String line;
 
@@ -87,7 +98,7 @@ public class BulkRegistController {
                 boolean isIsbnValid = data[4].matches("(^\\d{10}|\\d{13}$)?");
 
                 if (!isIsbnValid) {
-                    model.addAttribute("error", "ISBNは10字または13字の半角英数字を入力してください");
+
                     checkId = true;
                 }
                 bookInfo.setIsbn(data[4]);
@@ -100,17 +111,17 @@ public class BulkRegistController {
                     bookInfo.setPublish_date(data[3]);
 
                 } catch (ParseException p) {
-                    model.addAttribute("error1", "出版日は半角数字のYYYYMMDD形式で入力してください");
+
                     checkId = true;
                 }
                 if (checkId) {
-                    errorList.add(n + "行目の書籍情報登録でバリデーションエラー");
+                    errorList.add(count + "行目の書籍情報登録でバリデーションエラー");
 
                 }
 
                 bookList.add(bookInfo);
 
-                n++;
+                count++;
 
 
 
