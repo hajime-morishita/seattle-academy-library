@@ -124,9 +124,12 @@ public class AddBooksController {
 
         // TODO 登録した書籍の詳細情報を表示するように実装
         //  詳細画面に遷移する
-        int returnId = booksService.getReturnId();
+
+        int returnId = booksService.getReturnId();// 追加した書籍のID
         BookDetailsInfo newId = booksService.getBookInfo(returnId);
         model.addAttribute("bookDetailsInfo", newId);
+
+        model.addAttribute("lending", "貸出し可");
 
         return "details";
     }
