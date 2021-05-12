@@ -43,7 +43,7 @@ public class DetailsController {
         // デバッグ用ログ
         logger.info("Welcome detailsControler.java! The client locale is {}.", locale);
 
-        if (lendingService.lendingCheck(bookId) == 1) {
+        if (lendingService.lendingCheck(bookId) != 0) {
 
             model.addAttribute("lending", "貸出し中");
         }

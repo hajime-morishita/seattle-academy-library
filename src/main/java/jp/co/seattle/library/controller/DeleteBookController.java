@@ -45,8 +45,8 @@ public class DeleteBookController {
             Model model) {
         logger.info("Welcome delete! The client locale is {}.", locale);
 
-        //貸出しステータスの表示（bookIdの要素数が1の時）
-        if (lendingService.lendingCheck(bookId) == 1) {
+        //貸出しステータスの表示（bookIdの要素数が0以外の時）
+        if (lendingService.lendingCheck(bookId) != 0) {
 
             //書籍詳細情報を返す
             model.addAttribute("bookDetailsInfo", bookdService.getBookInfo(bookId));

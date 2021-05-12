@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jp.co.seattle.library.dto.BookDetailsInfo;
 import jp.co.seattle.library.service.BooksService;
-import jp.co.seattle.library.service.LendingService;
 import jp.co.seattle.library.service.ThumbnailService;
 
 /**
@@ -33,9 +32,6 @@ public class AddBooksController {
 
     @Autowired
     private ThumbnailService thumbnailService;
-
-    @Autowired
-    private LendingService lendingService;
 
     @RequestMapping(value = "/addBook", method = RequestMethod.GET) //value＝actionで指定したパラメータ
     //RequestParamでname属性を取得
@@ -133,15 +129,7 @@ public class AddBooksController {
         BookDetailsInfo newId = booksService.getBookInfo(returnId);
         model.addAttribute("bookDetailsInfo", newId);
 
-        if (lendingService.lendingCheck(returnId) == 1) {
-
-            model.addAttribute("lending", "貸出し中");
-        }
-
-        if (lendingService.lendingCheck(returnId) == 0) {
-
-            model.addAttribute("lending", "貸出し可");
-        }
+        model.addAttribute("lending", "貸出し可");
 
         return "details";
     }
