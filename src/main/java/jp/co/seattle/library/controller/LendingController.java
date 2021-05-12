@@ -77,8 +77,8 @@ public class LendingController {
             Model model) {
         logger.info("Welcome LendingController! The client locale is {}.", locale);
 
-        //返す条件式（もし要素数が1なら）
-        if (lendingService.lendingCheck(bookId) == 1) {
+        //返す条件式（もし要素数が0以外なら）
+        if (lendingService.lendingCheck(bookId) != 0) {
             //returnSystemに1を返す
             lendingService.returnSystem(bookId);
         }

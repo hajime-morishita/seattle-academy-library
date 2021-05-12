@@ -13,6 +13,11 @@ public class LendingService {
     @Autowired //絶対忘れない
     private JdbcTemplate jdbcTemplate;
 
+    /**
+     *  貸出しシステム
+     * 
+     * @param bookId
+     */
     //0を受け取った時動く      ↓ここに入る
     public void rentSystem(int bookId) {
 
@@ -26,6 +31,11 @@ public class LendingService {
 
     }
 
+    /**
+     * 返却システム
+     * 
+     * @param bookId
+     */
     //1を受け取った時に動く       ↓ここに入る
     public void returnSystem(int bookId) {
 
@@ -39,6 +49,12 @@ public class LendingService {
 
     }
 
+    /**
+     *  貸出しステータス
+     * 
+     * @param bookId
+     * @return　リターン
+     */
     public int lendingCheck(int bookId) {
         String sql = "select count(*) from lending where bookID=" + bookId + ";";
         int lendCheck = jdbcTemplate.queryForObject(sql, Integer.class);
