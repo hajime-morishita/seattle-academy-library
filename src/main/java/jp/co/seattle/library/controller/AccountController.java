@@ -62,17 +62,33 @@ public class AccountController {
         boolean isEmailValid = email
                 .matches("^([a-zA-Z0-9])+([a-zA-Z0-9\\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\\._-]+)+$");
         boolean isValidPW = password.matches("^[A-Za-z0-9]+$");
-        boolean isValidPWOForCheck = passwordForCheck.matches("^[A-Za-z0-9]+$");
+        boolean isValidPWForCheck = passwordForCheck.matches("^[A-Za-z0-9]+$");
+        boolean accountcheck = false;
         
         /// メール、パスワード、確認用パスワード、どれか１つでも半角英数ではなかった場合
-        if (!isEmailValid || !isValidPW || !isValidPWOForCheck) {
+        if (!isEmailValid || !isValidPW || !isValidPWForCheck) {
             // 遷移して欲しい画面の名前
-            model.addAttribute("error", "一文字以上の半角英数を使用してください");
-            return "createAccount";
+            model.addAttribute("emailerror", "一文字以上の半角英数を使用してください");
+            accountcheck = true;
         }
+        // if (!isEmailValid || !isValidPW || !isValidPWForCheck) {
+        // 遷移して欲しい画面の名前
+        // model.addAttribute("emailerror", "一文字以上の半角英数を使用してください");
+        //accountcheck = true;
+        // }
+        //if (!isEmailValid || !isValidPW || !isValidPWForCheck) {
+        // 遷移して欲しい画面の名前
+        //model.addAttribute("emailerror", "一文字以上の半角英数を使用してください");
+        // accountcheck = true;
+        // }
+
         /// パスワードと確認用パスワードが一致しなかった場合
         if (!password.equals(passwordForCheck)) {
-            model.addAttribute("error", "パスワードが一致しません");
+            model.addAttribute("passworderror", "パスワードが一致しません");
+            accountcheck = true;
+        }
+
+        if (accountcheck) {
             return "createAccount";
         }
         
