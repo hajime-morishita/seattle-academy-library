@@ -28,6 +28,13 @@ public class AccountController {
     @Autowired
     private UsersService usersService;
 
+
+    /**
+     * アカウント作成画面
+     * 
+     * @param model モデル
+     * @return
+     */
     @RequestMapping(value = "/newAccount", method = RequestMethod.GET) //value＝actionで指定したパラメータ
     public String createAccount(Model model) {
         return "createAccount";
@@ -65,34 +72,38 @@ public class AccountController {
         boolean isValidPWForCheck = passwordForCheck.matches("^[A-Za-z0-9]+$");
         boolean accountcheck = false;
         
-        /// メール、パスワード、確認用パスワード、どれか１つでも半角英数ではなかった場合
-        if (!isEmailValid || !isValidPW || !isValidPWForCheck) {
+        if (usersService.sameAccount(email) != 0) {
+            model.addAttribute("mailPWCheck", "既にアカウントが存在しています");
+
+            return "createAccount";
+        }
+
+        //メールがメールアドレス形式または半角英数字ではなかった場合
+        if (!isEmailValid) {
             // 遷移して欲しい画面の名前
-            model.addAttribute("emailerror", "一文字以上の半角英数を使用してください");
+            model.addAttribute("emailError", "メールアドレスにはメール形式、半角英数字を使用してください");
             accountcheck = true;
         }
-        // if (!isEmailValid || !isValidPW || !isValidPWForCheck) {
+        //パスワードと確認用パウワードが半角英数字ではなかった場合
+        if (!isValidPW || !isValidPWForCheck) {
         // 遷移して欲しい画面の名前
-        // model.addAttribute("emailerror", "一文字以上の半角英数を使用してください");
-        //accountcheck = true;
-        // }
-        //if (!isEmailValid || !isValidPW || !isValidPWForCheck) {
-        // 遷移して欲しい画面の名前
-        //model.addAttribute("emailerror", "一文字以上の半角英数を使用してください");
-        // accountcheck = true;
-        // }
+            model.addAttribute("passwordError", "パスワードには半角英数字を使用してください");
+            accountcheck = true;
+        }
 
         /// パスワードと確認用パスワードが一致しなかった場合
         if (!password.equals(passwordForCheck)) {
-            model.addAttribute("passworderror", "パスワードが一致しません");
+            model.addAttribute("checkPasswordError", "パスワードと確認用パスワードが一致しません");
             accountcheck = true;
         }
 
+        //バリデーションチェックエラーの場合
         if (accountcheck) {
             return "createAccount";
         }
         
         
+
 
         userInfo.setPassword(password);
         usersService.registUser(userInfo);

@@ -38,6 +38,19 @@ public class UsersService {
     }
 
     /**
+     * メールの一致チェック
+     * @param checkMailAddress
+     * @return
+     */
+    public int sameAccount(String checkMailAddress) {
+        String sql = "select count(EMAIL) from users where EMAIL='" + checkMailAddress + "';";
+
+        int checkPWID = jdbcTemplate.queryForObject(sql, Integer.class);
+
+        return checkPWID;
+    }
+
+    /**
      * ユーザー情報取得
      * @param email メールアドレス
      * @param password パスワード
