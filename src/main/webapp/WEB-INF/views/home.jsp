@@ -26,8 +26,7 @@
     </header>
     <main>
         <h1>Home</h1>
-        <a href="<%=request.getContextPath()%>/addBook" class="btn_add_book">書籍の追加</a>
-        <a href="<%=request.getContextPath()%>/bulkRegist" class="btn_bulk_book">一括登録</a>
+        <a href="<%=request.getContextPath()%>/addBook" class="btn_add_book">書籍の追加</a> <a href="<%=request.getContextPath()%>/bulkRegist" class="btn_bulk_book">一括登録</a>
         <div class="content_body">
             <c:if test="${!empty resultMessage}">
                 <div class="error_msg">${resultMessage}</div>
@@ -46,9 +45,15 @@
                             </form>
                             <ul>
                                 <li class="book_title">${bookInfo.title}</li>
-                                <li class="book_author">${bookInfo.author}</li>
-                                <li class="book_publisher">${bookInfo.publisher}</li>
-                                <li class="book_publish_Date">${bookInfo.publishDate}</li>
+                                <li class="book_author">${bookInfo.author}(著)</li>
+                                <li class="book_publisher">出版社：${bookInfo.publisher}</li>
+                                <li class="book_publish_Date">出版日：${bookInfo.publishDate}</li>
+                                <c:if test="${!empty bookInfo.lendingService}">
+                                    <div class="book_lendingService">貸出し中</div>
+                                </c:if>
+                                <c:if test="${empty bookInfo.lendingService}">
+                                    <div class="book_lendingService">貸出し可</div>
+                                </c:if>
                             </ul>
                         </div>
                     </c:forEach>

@@ -33,8 +33,9 @@ public class BooksService {
 
         // TODO 取得したい情報を取得するようにSQLを修正
         List<BookInfo> getedBookList = jdbcTemplate.query(
-                "select id,title,author,publisher,publish_date,thumbnail_url,description,publish_date,isbn from books order by title asc",
+                "SELECT books.ID,TITLE,AUTHOR,AUTHOR,PUBLISHER,PUBLISH_DATE,AUTHOR,THUMBNAIL_URL,DESCRIPTION,ISBN,LENDING_STATUS FROM books LEFT OUTER JOIN lending ON books.ID = lending.bookID order by TITLE asc",
                 new BookInfoRowMapper());
+
 
         return getedBookList;
     }
@@ -48,8 +49,7 @@ public class BooksService {
     public BookDetailsInfo getBookInfo(int bookId) {
 
         // JSPに渡すデータを設定する
-        String sql = "SELECT * FROM books where id ="
-                + bookId;
+        String sql = "SELECT * FROM books where id =" + bookId;
 
         BookDetailsInfo bookDetailsInfo = jdbcTemplate.queryForObject(sql, new BookDetailsInfoRowMapper());
 
@@ -76,6 +76,11 @@ public class BooksService {
         jdbcTemplate.update(sql);
     }
 
+    /**
+     * 書籍の貸出し
+     * 
+     * @param bookId
+     */
     public void deletingSystem(int bookId) {
         String sql = "delete from books where id=" + bookId + ";";
         jdbcTemplate.update(sql);
