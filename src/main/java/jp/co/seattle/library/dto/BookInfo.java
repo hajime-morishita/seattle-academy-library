@@ -27,13 +27,15 @@ public class BookInfo {
 
     private String isbn;
 
+    private String lendingService;
+
     public BookInfo() {
 
     }
 
     // コンストラクタ
     public BookInfo(int bookId, String title, String author, String publisher, String publishDate, String thumbnail,
-            String description, String isbn) {
+            String description, String isbn, String lendingService) {
         this.bookId = bookId;
         this.title = title;
         this.author = author;
@@ -42,6 +44,7 @@ public class BookInfo {
         this.thumbnail = thumbnail;
         this.description = description;
         this.isbn = isbn;
+        this.lendingService = lendingService;
     }
 
 }
