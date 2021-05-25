@@ -140,7 +140,7 @@ img.book_noimg, img.book_img{
     font-size: 12px;
 }
 
-a.btn_add_book,a.btn_bulk_book, button.btn_addBook,button.btn_editBook, button.btn_deleteBook,button.btn_rentBook,button.btn_returnBook,button.btn_bulkRegist {
+a.btn_add_book,a.btn_bulk_book, button.btn_addBook,button.btn_editBook, button.btn_deleteBook,button.btn_deleteBookNG,button.btn_rentBook,button.btn_rentBookNG,button.btn_returnBook,button.btn_returnBookNG,button.btn_bulkRegist {
     display: inline-block;
     font-size: 16px;
     font-weight: bold;
@@ -163,17 +163,26 @@ button.btn_editBook{
 button.btn_deleteBook {
     background-color: #e94047;
 }
+button.btn_deleteBookNG {
+    background-color: #FACAC8;
+}
 button.btn_rentBook{
     background-color: #FF9933;
 }
+button.btn_rentBookNG{
+    background-color: #FFDBC9;
+}
 button.btn_returnBook {
     background-color: #7db4e6;
+}
+button.btn_returnBookNG {
+    background-color: #C2D4F2;
 }
 button.btn_bulkRegist {
 	background-color: #FF9966;
 }
 
-a:hover, button:hover {
+a:hover, button.btn_addBook:hover, button.btn_editBook:hover,button.btn_bulkRegist:hover {
     opacity: 0.5;
 }
 
@@ -230,9 +239,10 @@ button.btn_addBook, button.btn_editBook, button.btn_deleteBook,button.btn_rentBo
 button.btn_addBook:focus, button.btn_editBook:focus, button.btn_deleteBook:focus,button.btn_rentBook:focus,button.btn_returnBook:focus,button.btn_bulkRegist:focus {
     outline: none;
 }
-button.btn_addBook:hover, button.btn_editBook:hover, button.btn_deleteBook:hover,button.btn_rentBook:hover,button.btn_returnBook:hover,button.btn_bulkRegist:hover {
+button.btn_addBook:hover, button.btn_editBook:hover,button.btn_bulkRegist:hover {
     cursor: pointer;
 }
+
 
 hr.border_add {
 	width:850px;
@@ -286,3 +296,14 @@ hr.border_add {
 	color:#fa8072;
 }
 
+.cursor_default{
+  cursor: default;
+}
+
+.cursor_pointer{
+  cursor: pointer;
+}
+
+.cursor_opacity{
+	 opacity: 0.5;
+}
